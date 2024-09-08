@@ -5,25 +5,27 @@ import os
 check_app = Flask(__name__)
 
 passwd_g = os.environ.get('passwd')
-with open('/etc/secrets/status', 'r')as fs:
-    status = fs.read()
-    fs.close()
+
 
 
 @check_app.route('/status', methods=['GET', 'POST'])
-def status(): 
+def status():
     passwd = request.args.get('passwd')
-    status=request.args.get('status')
-    if (passwd and status and passwd == passwd_g ):
+    stat_in=request.args.get('status') 
+    with open('/etc/secrets/status', 'r')as fs:
+        status = fs.read()
+        fs.close()
+    if (request.method=='GET'):
+        return status
+    elif (passwd and stat_in and passwd == passwd_g ):
         with open('/etc/secrets/status', 'w') as f:            
-            f.write(status)
-        f.close()
-
+            f.write(stat_in)
+            f.close()
+        return stat_in
     else:
-        with open('/etc/secrets/status', 'r') as f:            
-            status = f.read()
-        f.close()       
-    return status
+        return status
+
+    
 
 @check_app.route('/sales', methods=['POST'])
 def client():
@@ -48,11 +50,12 @@ def read_clients ():
         
     else:
          return 'Wrong passwd'
-@check_app.route('/delete')
+@check_app.route('/delete', methods=['POST'])
 def delete_csv ():
     passwd = request.args.get('passwd')
     if ( passwd == passwd_g):
-        open("clients.csv", 'w').close()        
+        open("clients.csv", 'w').close()
+        return       
     else:
         return 'Wrong passwd'
 

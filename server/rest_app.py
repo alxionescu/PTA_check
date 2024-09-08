@@ -13,8 +13,9 @@ def client():
         dct= res.to_dict(flat=True)
         print(dct)
         with open ("server/clients.csv", "a") as f:
+            f.write ("\n" )
             for  key, val in dct.items():
-                f.write ("\n" + key + ";" + val)
+                f.write (val + ";")
         f.close()
               
         #print (res)

@@ -1,5 +1,4 @@
 from flask import Flask, request
-import os
 
 check_app = Flask(__name__)
 
@@ -11,23 +10,28 @@ def status():
 def client():
         res=  request.form
         dct= res.to_dict(flat=True)
-        print(dct)
-        with open ("clients.csv", "a") as f:
-            f.write ("\n" )
+        with open ("clients.csv", "a") as f:            
             for  key, val in dct.items():
                 f.write (val + ";")
+            #f.write ("\n")
         f.close()
               
         #print (res)
         return res
-@check_app.route('/read-clients/<passwd>', methods=['GET'])
-def read_clients (passwd):
-    if ( passwd in ['cineva', 'altcineva']):
+@check_app.route('/read-clients', methods=['GET'])
+def read_clients ():    
+    passwd = request.args.get('passwd')
+    if ( passwd == 'cineva'):
         with open("clients.csv", "r") as f:
-            content=f.read()
-        f.close()
+            
+            content = f.readlines()
+        f.close()    
+
         return content
-#check_app.run()
+        
+    else:
+         return 'null'
+check_app.run()
 
 
 

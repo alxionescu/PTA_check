@@ -12,7 +12,7 @@ def client():
         res=  request.form
         dct= res.to_dict(flat=True)
         print(dct)
-        with open ("server/clients.csv", "a") as f:
+        with open ("clients.csv", "a") as f:
             f.write ("\n" )
             for  key, val in dct.items():
                 f.write (val + ";")

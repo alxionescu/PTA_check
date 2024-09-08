@@ -13,7 +13,7 @@ def client():
         with open ("clients.csv", "a") as f:            
             for  key, val in dct.items():
                 f.write (val + ";")
-            #f.write ("\n")
+            f.write ("\n")
         f.close()
               
         #print (res)
@@ -22,16 +22,22 @@ def client():
 def read_clients ():    
     passwd = request.args.get('passwd')
     if ( passwd == 'cineva'):
-        with open("clients.csv", "r") as f:
-            
+        with open("clients.csv", "r") as f:            
             content = f.readlines()
-        f.close()    
-
+        f.close()
         return content
         
     else:
-         return 'null'
-check_app.run()
+         return 'Wrong passwd'
+@check_app.route('/delete')
+def delete_csv ():
+    passwd = request.args.get('passwd')
+    if ( passwd == 'cineva'):
+        open("clients.csv", 'w').close()        
+    else:
+         return 'Wrong passwd'
+
+#check_app.run()
 
 
 

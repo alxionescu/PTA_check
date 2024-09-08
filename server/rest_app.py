@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 
 check_app = Flask(__name__)
@@ -6,7 +6,7 @@ check_app = Flask(__name__)
 
 @check_app.route('/status', methods=['GET'])
 def status():
-    return jsonify({"OK": "yes"})
+    return "OK"
 @check_app.route('/sales', methods=['POST'])
 def client():
         res=  request.form

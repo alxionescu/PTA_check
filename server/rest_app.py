@@ -20,12 +20,13 @@ def client():
               
         #print (res)
         return res
-@check_app.route('/read-clients', methods=['GET'])
-def read_clients ():
-    with open("clients.csv", "r") as f:
-        content=f.read()
-    f.close()
-    return content
+@check_app.route('/read-clients/<passwd>', methods=['GET'])
+def read_clients (passwd):
+    if ( passwd in ['cineva', 'altcineva']):
+        with open("clients.csv", "r") as f:
+            content=f.read()
+        f.close()
+        return content
 #check_app.run()
 
 

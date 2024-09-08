@@ -6,5 +6,5 @@ check_app = Flask(__name__)
 def index():
     return jsonify({"message": "hello world"})
 
-if __name__ == '__main__':
-    check_app.run()
+""" if __name__ == '__main__':
+    check_app.run() """

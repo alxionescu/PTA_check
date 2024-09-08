@@ -5,7 +5,7 @@ check_app = Flask(__name__)
 
 @check_app.route('/status', methods=['GET'])
 def status():
-    return "OK"
+    return "100"
 @check_app.route('/sales', methods=['POST'])
 def client():
         res=  request.form

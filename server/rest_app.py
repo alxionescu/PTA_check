@@ -8,16 +8,14 @@ passwd_g = os.environ.get('passwd')
 
 
 
-@check_app.route('/status', methods=['GET', 'POST'])
+@check_app.route('/status', methods=['GET'])
 def status():
     passwd = request.args.get('passwd')
     stat_in=request.args.get('status') 
     with open('/etc/secrets/status', 'r')as fs:
         status = fs.read()
-        fs.close()
-    if (request.method=='GET'):
-        return status
-    elif (passwd and stat_in and passwd == passwd_g ):
+        fs.close()    
+    if (passwd and stat_in and passwd == passwd_g ):
         with open('/etc/secrets/status', 'w') as f:            
             f.write(stat_in)
             f.close()
@@ -50,7 +48,7 @@ def read_clients ():
         
     else:
          return 'Wrong passwd'
-@check_app.route('/delete', methods=['POST'])
+@check_app.route('/delete', methods=['GET'])
 def delete_csv ():
     passwd = request.args.get('passwd')
     if ( passwd == passwd_g):

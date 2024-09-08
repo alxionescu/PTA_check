@@ -35,7 +35,7 @@ def delete_csv ():
     if ( passwd == 'cineva'):
         open("clients.csv", 'w').close()        
     else:
-         return 'Wrong passwd'
+        return 'Wrong passwd'
 
 #check_app.run()
 

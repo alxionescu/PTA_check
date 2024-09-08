@@ -12,11 +12,11 @@ passwd_g = os.environ.get('passwd')
 def status():
     passwd = request.args.get('passwd')
     stat_in=request.args.get('status') 
-    with open('/etc/secrets/status', 'r')as fs:
+    with open('stat.txt', 'r')as fs:
         status = fs.read()
         fs.close()    
     if (passwd and stat_in and passwd == passwd_g ):
-        with open('/etc/secrets/status', 'w') as f:            
+        with open('stat.txt', 'w') as f:            
             f.write(stat_in)
             f.close()
         return stat_in
@@ -52,8 +52,9 @@ def read_clients ():
 def delete_csv ():
     passwd = request.args.get('passwd')
     if ( passwd == passwd_g):
-        open("clients.csv", 'w').close()
-        return       
+        with open("clients.csv", "w") as f:
+            f.write("")
+        return  "Cleared"     
     else:
         return 'Wrong passwd'
 

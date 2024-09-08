@@ -1,13 +1,13 @@
 from flask import Flask, request
 
 
-check_app = Flask(__name__)
+app = Flask(__name__)
 
 
-@check_app.route('/status', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def status():
     return "OK"
-@check_app.route('/sales', methods=['POST'])
+@app.route('/sales', methods=['POST'])
 def client():
         res=  request.form
         dct= res.to_dict(flat=True)
@@ -20,8 +20,16 @@ def client():
               
         #print (res)
         return res
+@app.route('/read-clients', methods=['GET'])
+def read_clients ():
+    with open("clients.csv", "r") as f:
+        content=f.read()
+    f.close()
+    return content
 
-#check_app.run()
+
+if __name__ == "__main__":
+    app.run()
 
 
 

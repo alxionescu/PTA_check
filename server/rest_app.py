@@ -21,7 +21,7 @@ def client():
         #print (res)
         return res
 
-check_app.run(debug=1)
+check_app.run()
 
 
 
